@@ -46,4 +46,33 @@ select * from silver.crm_prd_info
 where prd_start_dt > prd_end_dt
 
 
+---------------------------------------------------------------------
 
+-- Checking for Nulls and Duplicates
+select count(sls_ord_num)
+from 
+bronze.crm_sales_details
+group by sls_ord_num,sls_prd_key
+having count(sls_ord_num)!=1
+
+-- Check for Invalid product key
+select * from bronze.crm_sales_details
+where sls_prd_key not in (
+select prd_key from silver.crm_prd_info
+)
+
+-- Check for Invalid Customer Id
+select * from bronze.crm_sales_details
+where sls_cust_id not in (
+select cst_id from silver.crm_cust_info)
+
+select * from bronze.crm_sales_details where sls_price<0
+
+-- Other checks, should update later
+select distinct cntry from bronze.erp_loc_a101
+select cid from bronze.erp_loc_a101 where replace(cid,'-','') not in (select cst_key from silver.crm_cust_info)
+
+
+select * from bronze.erp_px_cat_g1v2 where id not in (
+
+select cat_id from silver.crm_prd_info)
