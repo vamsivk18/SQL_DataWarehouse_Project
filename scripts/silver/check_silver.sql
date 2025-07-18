@@ -29,12 +29,21 @@ select distinct cst_marital_status from silver.crm_cust_info;
 select 
 count(prd_id) 
 from 
-bronze.crm_prd_info
+silver.crm_prd_info
 group by prd_id
 having count(prd_id)>1 or prd_id is null;
 
-select * from bronze.crm_prd_info
+-- Invalid product costs
+select * from silver.crm_prd_info
 where prd_cost<0 or prd_cost is null
+
+-- Data Standardization & Consistency
+select distinct prd_line
+from silver.crm_prd_info
+
+-- Invalid Order dates
+select * from silver.crm_prd_info
+where prd_start_dt > prd_end_dt
 
 
 
