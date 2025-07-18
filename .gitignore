@@ -1,0 +1,15 @@
+# Ignore Visual Studio and SSMS project junk
+.vs/
+*.user
+*.suo
+*.dbmdl
+*.vssscc
+*.vsscc
+FileContextIndex
+*.sqlproj.user
+*.ssmssln.user
+bin/
+obj/
+*.log
+*.tmp
+*.bak
