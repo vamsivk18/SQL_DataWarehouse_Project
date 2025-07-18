@@ -22,3 +22,19 @@ or cst_lastname!=trim(cst_lastname)
 select distinct cst_gndr from silver.crm_cust_info
 
 select distinct cst_marital_status from silver.crm_cust_info;
+
+------------------------------------------------------------------------
+
+--Check for Nulls or Duplicate Primary key
+select 
+count(prd_id) 
+from 
+bronze.crm_prd_info
+group by prd_id
+having count(prd_id)>1 or prd_id is null;
+
+select * from bronze.crm_prd_info
+where prd_cost<0 or prd_cost is null
+
+
+
